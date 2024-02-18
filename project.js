@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 
 let app = express();
-let products = JSON.parse(fs.readFileSync('iPhones.json', 'utf-8'))
+let products = JSON.parse(fs.readFileSync('./Data/products.json', 'utf-8'))
 
 app.use(express.json())
 
@@ -45,7 +45,7 @@ const createProduct = (req, res) => {
 
     products.push(newProduct);
 
-    fs.writeFile('iPhones.json', JSON.stringify(products), (err) => {
+    fs.writeFile('./Data/products.json', JSON.stringify(products), (err) => {
         res.status(201).json({
             status: "success",
             data: {
@@ -71,7 +71,7 @@ const updateProduct = (req, res) => {
     Object.assign(productToUpdate, req.body);
     products[index] = productToUpdate;
 
-    fs.writeFile('iPhones.json', JSON.stringify(products), (err) => {
+    fs.writeFile('./Data/products.json', JSON.stringify(products), (err) => {
         res.status(200).json({
             status: "success",
             data: {
@@ -96,7 +96,7 @@ const deleteProduct = (req, res) => {
 
     products.splice(index, 1);
 
-    fs.writeFile('iPhones.json', JSON.stringify(products), (err) => {
+    fs.writeFile('./Data/products.json', JSON.stringify(products), (err) => {
         res.status(204).json({
             status: "success",
             data: {
